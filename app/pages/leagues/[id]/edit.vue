@@ -1,6 +1,4 @@
 <script setup>
-import LeagueForm from "~/components/league/LeagueForm.vue";
-
 const route = useRoute();
 const leagueId = route.params.id;
 

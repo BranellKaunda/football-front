@@ -1,11 +1,9 @@
 <script setup>
 const route = useRoute();
-const { data } = await useFetch(
-  `http://localhost:8000/api/matches/${route.params.id}`,
-  {
-    query: route.query,
-  },
-);
+const id = route.params.id;
+const { data } = await useFetch(`http://localhost:8000/api/matches/${id}`, {
+  query: route.query,
+});
 
 console.log(data);
 </script>
@@ -14,7 +12,7 @@ console.log(data);
   <pre>{{ data }}</pre>
   <div>
     <p>
-      <NuxtLink :to="`/matches/${route.params.id}/edit`">Edit match</NuxtLink>
+      <NuxtLink :to="`/matches/${id}/edit`">Edit match</NuxtLink>
     </p>
   </div>
 </template>

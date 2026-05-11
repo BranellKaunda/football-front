@@ -1,6 +1,5 @@
 <script setup>
 const league = defineModel();
-
 const draft = ref({ ...league.value });
 const emit = defineEmits(["cancel", "save"]);
 
