@@ -1,22 +1,11 @@
 <script setup>
-const props = defineProps({
-  names: Array,
-  nums: Array,
-});
-
-const { names, nums } = props;
-
-const model = defineModel();
-
-function increment() {
-  model.value++;
-}
+const players = defineModel();
 </script>
 
 <template>
-  <li v-for="name in names">{{ name }}</li>
-  <li v-for="num in nums">{{ num }}</li>
-
-  <p>parent model: {{ model }}</p>
-  <button @click="increment">+</button>
+  <div>
+    <input v-model="players.name" />
+    <input v-model="players.age" />
+    <input v-model="players.number" />
+  </div>
 </template>

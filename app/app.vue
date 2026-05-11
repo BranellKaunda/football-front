@@ -1,9 +1,9 @@
 <script setup>
-import TestChild from "./components/test/TestChild.vue";
-
-const names = ref(["john", "sam", "mary"]);
-const nums = ref([1, 2, 3, 4, 5, 6, 0]);
-const newCount = ref(0);
+const players = ref({
+  name: "branell",
+  age: 27,
+  number: 22,
+});
 </script>
 
 <template>
@@ -19,6 +19,7 @@ const newCount = ref(0);
     </nav>
 
     <NuxtPage />
-    <TestChild :names="names" :nums="nums" v-model="newCount" />
+
+    <!-- <TestChild v-model="players" /> -->
   </div>
 </template>

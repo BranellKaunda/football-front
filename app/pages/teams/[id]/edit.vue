@@ -7,10 +7,15 @@ const { data: team } = await useFetch(
 );
 
 const onCancel = () => {
-  navigateTo(`/teams/${teamId}`); // same as useRouter.push(`/teams/${teamId}`)
+  navigateTo(`/teams/${teamId}`);
+};
+
+const onSave = () => {
+  navigateTo(`/teams/${teamId}`);
+  console.log("it is saved");
 };
 </script>
 
 <template>
-  <TeamForm v-model="team" @cancel="onCancel" />
+  <TeamForm v-model="team" @cancel="onCancel" @save="onSave" />
 </template>

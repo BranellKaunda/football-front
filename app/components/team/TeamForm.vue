@@ -3,10 +3,9 @@ const team = defineModel();
 
 // local working copy
 const draft = ref({ ...team.value });
+const emit = defineEmits(["cancel", "save"]);
 
 async function save() {
-  // console.log(team.value);
-  //team.value = { ...draft.value }; // emit once
   const res = await $fetch(`http://localhost:8000/api/teams/${team.value.id}`, {
     method: "PATCH",
     body: {
@@ -15,10 +14,10 @@ async function save() {
       location: draft.value.location,
     },
   });
-  team.value = res; // emit once
-}
 
-const emit = defineEmits(["cancel"]);
+  team.value = res; // emit once
+  emit("save");
+}
 
 function cancel() {
   draft.value = { ...team.value };
