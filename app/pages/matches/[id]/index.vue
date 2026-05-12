@@ -4,8 +4,6 @@ const id = route.params.id;
 const { data } = await useFetch(`http://localhost:8000/api/matches/${id}`, {
   query: route.query,
 });
-
-console.log(data);
 </script>
 
 <template>
