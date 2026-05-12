@@ -12,9 +12,5 @@ const onSave = async (e) => {
 
 <template>
   <p>lets import a player</p>
-  <PlayerCreateForm
-    v-model="player"
-    @cancel="onCancel"
-    @save="($event) => onSave($event)"
-  />
+  <PlayerCreateForm v-model="player" @cancel="onCancel" @save="onSave" />
 </template>
