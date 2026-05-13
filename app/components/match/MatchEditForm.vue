@@ -3,6 +3,8 @@ const match = defineModel();
 const draft = ref({ ...match.value });
 const emit = defineEmits(["cancel", "save"]);
 
+const { data: teams } = await useFetch("http://localhost:8000/api/teams");
+
 async function save() {
   const res = await $fetch(
     `http://localhost:8000/api/matches/${match.value.id}`,
@@ -31,17 +33,73 @@ function cancel() {
 </script>
 
 <template>
-  <form @submit.prevent="save">
-    <input v-model.number="draft.homeTeam.id" placeholder="homeTeamId" />
-    <input v-model.number="draft.awayTeam.id" placeholder="awayTeamId" />
-    <input v-model.number="draft.homeTeamGoals" placeholder="homeTeamGoals" />
-    <input v-model.number="draft.awayTeamGoals" placeholder="awayTeamGoals" />
-    <input v-model="draft.matchDate" placeholder="matchDate" />
-    <input v-model="draft.status" placeholder="status" />
-    <input v-model.number="draft.competition.id" placeholder="competitionId" />
-    <button @click="cancel">Cancel</button>
-    <button type="submit">Save</button>
-  </form>
+  <h1 class="m-8 text-2xl font-bold text-center">Edit Match</h1>
+  <form
+    class="flex flex-col gap-4 bg-white p-4 rounded shadow max-w-md mx-auto m-10"
+    @submit.prevent="save"
+  >
+    <div class="flex flex-col gap-2">
+      <label>Home Team</label>
+      <select v-model.number="draft.homeTeam.id" placeholder="select a team">
+        <option disabled value="">Select a team</option>
+        <option v-for="team in teams" :key="team.id" :value="team.id">
+          {{ team.name }}
+        </option>
+      </select>
+    </div>
 
-  <pre>{{ draft }}</pre>
-</template> 
+    <div class="flex flex-col gap-2">
+      <label>Away Team</label>
+      <select v-model.number="draft.awayTeam.id" placeholder="select a team">
+        <option disabled value="">Select a team</option>
+        <option v-for="team in teams" :key="team.id" :value="team.id">
+          {{ team.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label>Home Team Goals</label>
+      <input v-model.number="draft.homeTeamGoals" placeholder="homeTeamGoals" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label>Away Team Goals</label>
+      <input v-model.number="draft.awayTeamGoals" placeholder="awayTeamGoals" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label>Match Date</label>
+      <input v-model="draft.matchDate" placeholder="matchDate" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label>Status</label>
+      <input v-model="draft.status" placeholder="status" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label> Competition ID</label>
+      <input
+        v-model.number="draft.competition.id"
+        placeholder="competitionId"
+      />
+    </div>
+
+    <div class="flex gap-4 justify-end">
+      <button
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
+        type="button"
+        @click="cancel"
+      >
+        Cancel
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+        type="submit"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</template>

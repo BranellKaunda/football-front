@@ -1,12 +1,44 @@
 <script setup>
-const { data } = await useFetch("http://localhost:8000/api/teams");
+const { data: teams } = await useFetch("http://localhost:8000/api/teams");
 </script>
 
-<template>
+<!-- <template>
   <h1>Teams page</h1>
   <ol v-if="data">
     <li v-for="team in data" :key="team.id">
       <NuxtLink :to="`/teams/${team.id}`">{{ team.name }} </NuxtLink>
     </li>
   </ol>
+  <pre>{{ data }}</pre>
+</template> -->
+
+<template>
+  <div class="max-w-3xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-6 text-center">Teams</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div
+        v-for="team in teams"
+        :key="team.id"
+        class="bg-white p-4 rounded shadow flex items-center gap-4"
+      >
+        <!-- TEAM LOGO -->
+        <NuxtLink :to="`/teams/${team.id}`">
+          <img
+            :src="team.logo"
+            alt="team logo"
+            class="w-14 h-14 object-contain rounded"
+          />
+        </NuxtLink>
+
+        <!-- TEAM INFO -->
+        <div class="flex flex-col">
+          <NuxtLink :to="`/teams/${team.id}`" class="font-semibold text-lg">
+            {{ team.name }}
+          </NuxtLink>
+          <p class="text-gray-600 text-sm capitalize">{{ team.location }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

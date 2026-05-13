@@ -8,13 +8,23 @@ const players = ref({
 
 <template>
   <div>
-    <nav>
-      <ul>
-        <li><NuxtLink to="/">Home</NuxtLink></li>
-        <li><NuxtLink to="/players">Players</NuxtLink></li>
-        <li><NuxtLink to="/matches">Matches</NuxtLink></li>
-        <li><NuxtLink to="/teams">Teams</NuxtLink></li>
-        <li><NuxtLink to="/leagues">Leagues</NuxtLink></li>
+    <nav class="bg-gray-800 text-white p-4">
+      <ul class="flex flex-row gap-4 justify-end">
+        <li class="hover:text-blue-600">
+          <NuxtLink to="/">Home</NuxtLink>
+        </li>
+        <li class="hover:text-blue-600">
+          <NuxtLink to="/players">Players</NuxtLink>
+        </li>
+        <li class="hover:text-blue-600">
+          <NuxtLink to="/matches">Matches</NuxtLink>
+        </li>
+        <li class="hover:text-blue-600">
+          <NuxtLink to="/teams">Teams</NuxtLink>
+        </li>
+        <li class="hover:text-blue-600">
+          <NuxtLink to="/leagues">Leagues</NuxtLink>
+        </li>
       </ul>
     </nav>
 

@@ -26,11 +26,40 @@ function cancel() {
 </script>
 
 <template>
-  <form @submit.prevent="save">
-    <input v-model="draft.name" placeholder="name" />
-    <input v-model="draft.logo" placeholder="logo" />
-    <input v-model="draft.location" placeholder="location" />
-    <button type="button" @click="cancel">Cancel</button>
-    <button type="submit">Save</button>
+  <h1 class="m-8 text-2xl font-bold text-center">Edit Team</h1>
+  <form
+    class="flex flex-col gap-4 bg-white p-4 rounded shadow max-w-md mx-auto m-10"
+    @submit.prevent="save"
+  >
+    <div class="flex flex-col gap-2">
+      <label>Name</label>
+      <input v-model="draft.name" placeholder="name" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label>Logo</label>
+      <input v-model="draft.logo" placeholder="logo" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label>Location</label>
+      <input v-model="draft.location" placeholder="location" />
+    </div>
+
+    <div class="flex gap-4 justify-end">
+      <button
+        class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
+        type="button"
+        @click="cancel"
+      >
+        Cancel
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+        type="submit"
+      >
+        Save
+      </button>
+    </div>
   </form>
 </template>
