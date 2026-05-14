@@ -2,14 +2,14 @@
 const player = ref({});
 
 const onCancel = () => {
-  navigateTo(`/create`);
+  navigateTo(`/players`);
 };
 
 const onSave = async (e) => {
-  navigateTo(`/players/${e}`);
+  navigateTo(`/players/${e.id}`);
 };
 </script>
 
 <template>
-  <PlayerCreateForm v-model="player" @cancel="onCancel" @save="onSave" />
+  <PlayerForm v-model="player" @cancel="onCancel" @save="onSave" />
 </template>

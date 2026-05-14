@@ -2,26 +2,31 @@
 const player = defineModel();
 const draft = ref({ ...player.value });
 const emit = defineEmits(["cancel", "save"]);
+const editing = computed(() => !!draft.value.id);
 
 const { data: teams } = await useFetch("http://localhost:8000/api/teams");
 
 async function save() {
-  const res = await $fetch(
-    `http://localhost:8000/api/players/${player.value.id}`,
-    {
-      method: "PATCH",
-      body: {
-        teamId: draft.value.teamId,
-        firstName: draft.value.firstName,
-        lastName: draft.value.lastName,
-        dob: draft.value.dob,
-        position: draft.value.position,
-      },
-    },
-  );
+  const body = {
+    teamId: draft.value.teamId,
+    firstName: draft.value.firstName,
+    lastName: draft.value.lastName,
+    dob: draft.value.dob,
+    position: draft.value.position,
+    weightKg: draft.value.weightKg,
+    heightCm: draft.value.heightCm,
+  };
+
+  const url = editing.value
+    ? `http://localhost:8000/api/players/${player.value.id}`
+    : "http://localhost:8000/api/players/create";
+
+  const method = editing.value ? "PATCH" : "POST";
+
+  const res = await $fetch(url, { method, body });
 
   player.value = res; // emit once
-  emit("save");
+  emit("save", res);
 }
 
 function cancel() {
@@ -31,7 +36,9 @@ function cancel() {
 </script>
 
 <template>
-  <h1 class="m-8 text-2xl font-bold text-center">Edit Player</h1>
+  <h1 class="m-8 text-2xl font-bold text-center">
+    {{ editing ? "Edit Player" : "Create Player" }}
+  </h1>
   <form
     class="flex flex-col gap-4 bg-white p-4 rounded shadow max-w-md mx-auto m-10"
     @submit.prevent="save"
@@ -58,7 +65,7 @@ function cancel() {
 
     <div class="flex flex-col gap-2">
       <label>Date of Birth</label>
-      <input v-model="draft.dob" placeholder="dob" />
+      <input v-model="draft.dob" placeholder="yyyy-mm-dd" />
     </div>
 
     <div class="flex flex-col gap-2">
@@ -70,6 +77,16 @@ function cancel() {
         <option value="Defender">Defender</option>
         <option value="Goalkeeper">Goalkeeper</option>
       </select>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label>Weight (kg)</label>
+      <input v-model.number="draft.weightKg" placeholder="weight" />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label>Height (cm)</label>
+      <input v-model.number="draft.heightCm" placeholder="height" />
     </div>
 
     <div class="flex gap-4 justify-end">

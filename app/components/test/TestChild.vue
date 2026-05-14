@@ -1,11 +1,10 @@
-<script setup>
-const players = defineModel();
+<script setup lang="ts">
+defineProps<{ age: String; isMarried: Boolean }>();
 </script>
 
 <template>
   <div>
-    <input v-model="players.name" />
-    <input v-model="players.age" />
-    <input v-model="players.number" />
+    <h1>{{ age }}</h1>
+    <h1>{{ isMarried }}</h1>
   </div>
 </template>

@@ -2,16 +2,6 @@
 const { data: teams } = await useFetch("http://localhost:8000/api/teams");
 </script>
 
-<!-- <template>
-  <h1>Teams page</h1>
-  <ol v-if="data">
-    <li v-for="team in data" :key="team.id">
-      <NuxtLink :to="`/teams/${team.id}`">{{ team.name }} </NuxtLink>
-    </li>
-  </ol>
-  <pre>{{ data }}</pre>
-</template> -->
-
 <template>
   <div class="max-w-3xl mx-auto p-6">
     <h1 class="text-2xl font-bold mb-6 text-center">Teams</h1>

@@ -31,5 +31,6 @@ const players = ref({
     <NuxtPage />
 
     <!-- <TestChild v-model="players" /> -->
+    <!-- <TestChild :age="77" :is-married="false" /> -->
   </div>
 </template>
