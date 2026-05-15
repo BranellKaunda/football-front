@@ -7,19 +7,6 @@ const props = defineProps({
 const { data: recentMatches } = await useFetch(
   `http://localhost:8000/api/matches/?teamId=${route.params.id}`,
 );
-
-function getFormClass(match) {
-  const teamId = Number(route.params.id);
-  const isHome = match.homeTeamId === teamId;
-  const isAway = match.awayTeamId === teamId;
-
-  const goalsFor = isHome ? match.homeTeamGoals : match.awayTeamGoals;
-  const goalsAgainst = isHome ? match.awayTeamGoals : match.homeTeamGoals;
-
-  if (goalsFor > goalsAgainst) return "bg-green-100 text-green-800";
-  if (goalsFor === goalsAgainst) return "bg-yellow-100 text-yellow-800";
-  return "bg-red-100 text-red-800";
-}
 </script>
 
 <template>

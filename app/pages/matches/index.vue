@@ -4,6 +4,12 @@ const { data } = await useFetch("http://localhost:8000/api/matches");
 
 <template>
   <div class="max-w-3xl mx-auto p-6">
+    <NuxtLink
+      to="/import/matches"
+      class="inline-block mb-6 px-4 py-2 font-semibold hover:text-blue-800"
+      >Import Matches</NuxtLink
+    >
+
     <h1 class="text-2xl font-bold mb-6 text-center">Matches</h1>
 
     <div class="flex flex-col gap-4" v-if="data">
