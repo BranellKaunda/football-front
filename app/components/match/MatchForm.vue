@@ -6,24 +6,28 @@ const emit = defineEmits(["cancel", "save"]);
 const { data: teams } = await useFetch("http://localhost:8000/api/teams");
 
 async function save() {
-  const res = await $fetch(
-    `http://localhost:8000/api/matches/${match.value.id}`,
-    {
-      method: "PATCH",
-      body: {
-        homeTeamId: draft.value.homeTeam.id,
-        awayTeamId: draft.value.awayTeam.id,
-        homeTeamGoals: draft.value.homeTeamGoals,
-        awayTeamGoals: draft.value.awayTeamGoals,
-        matchDate: draft.value.matchDate,
-        status: draft.value.status,
-        competitionId: draft.value.competition.id,
-      },
-    },
-  );
+  const body = {
+    homeTeamId: draft.value.homeTeam.id,
+    awayTeamId: draft.value.awayTeam.id,
+    homeTeamGoals: draft.value.homeTeamGoals,
+    awayTeamGoals: draft.value.awayTeamGoals,
+    matchDate: draft.value.matchDate,
+    status: draft.value.status,
+    competitionId: draft.value.competition.id,
+  };
 
-  match.value = res;
-  emit("save");
+  const method = match.value.id ? "PATCH" : "POST";
+
+  const url = match.value.id
+    ? `http://localhost:8000/api/matches/${match.value.id}`
+    : `http://localhost:8000/api/matches/create`;
+
+  const res = await $fetch(url, {
+    method,
+    body,
+  });
+
+  emit("save", res);
 }
 
 function cancel() {
@@ -33,7 +37,9 @@ function cancel() {
 </script>
 
 <template>
-  <h1 class="m-8 text-2xl font-bold text-center">Edit Match</h1>
+  <h1 class="m-8 text-2xl font-bold text-center">
+    {{ match.id ? "Edit Match" : "Create Match" }}
+  </h1>
   <form
     class="flex flex-col gap-4 bg-white p-4 rounded shadow max-w-md mx-auto m-10"
     @submit.prevent="save"
@@ -75,7 +81,14 @@ function cancel() {
 
     <div class="flex flex-col gap-2">
       <label>Status</label>
-      <input v-model="draft.status" placeholder="status" />
+      <select v-model="draft.status">
+        <option value="Scheduled">Scheduled</option>
+        <option value="Live">Live</option>
+        <option value="Finished">Finished</option>
+        <option value="Halftime">Halftime</option>
+        <option value="Cancelled">Cancelled</option>
+        <option value="Abandoned">Abandoned</option>
+      </select>
     </div>
 
     <div class="flex flex-col gap-2">

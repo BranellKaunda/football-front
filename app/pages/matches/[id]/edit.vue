@@ -16,5 +16,5 @@ const onSave = () => {
 </script>
 
 <template>
-  <MatchEditForm v-model="match" @cancel="onCancel" @save="onSave" />
+  <MatchForm v-model="match" @cancel="onCancel" @save="onSave" />
 </template>

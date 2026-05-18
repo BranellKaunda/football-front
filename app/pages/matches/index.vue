@@ -10,6 +10,15 @@ const { data } = await useFetch("http://localhost:8000/api/matches");
       >Import Matches</NuxtLink
     >
 
+    <div>
+      <NuxtLink
+        to="/matches/create"
+        class="inline-block mb-6 px-4 py-2 font-semibold hover:text-blue-800"
+      >
+        Create Match
+      </NuxtLink>
+    </div>
+
     <h1 class="text-2xl font-bold mb-6 text-center">Matches</h1>
 
     <div class="flex flex-col gap-4" v-if="data">
@@ -65,6 +74,15 @@ const { data } = await useFetch("http://localhost:8000/api/matches");
         <!-- COMPETITION + DATE -->
         <div class="text-gray-600 text-sm text-center">
           {{ match.competition?.name }} • {{ match.matchDate }}
+        </div>
+
+        <div class="text-center">
+          <NuxtLink
+            class="text-blue-600 hover:text-blue-800 text-sm"
+            :to="`/matches/${match.id}/edit`"
+          >
+            Edit Match
+          </NuxtLink>
         </div>
       </div>
     </div>
