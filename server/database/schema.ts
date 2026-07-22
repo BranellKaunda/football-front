@@ -11,6 +11,7 @@ import {
   index,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
+import { id } from "zod/v4/locales";
 export const matchStatusEnum = pgEnum("match_status", [
   "Scheduled",
   "Live",
@@ -49,6 +50,14 @@ export const players = pgTable("players", {
   weightKg: integer("weight_kg").notNull(),
   heightCm: integer("height_cm").notNull(),
 });
+
+/* export const headCoach = pgTable("head_coach", {
+  id: serial("id").primaryKey(),
+  firstName: text('first_name',).notNull(),
+  lastName: text("last_name").notNull(),
+  dob: date("dob").notNull(),
+  country: text("country").notNull(),
+}) */
 
 export const playerTeams = pgTable(
   "player_teams",
@@ -213,4 +222,3 @@ export const verification = pgTable(
   },
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
-
