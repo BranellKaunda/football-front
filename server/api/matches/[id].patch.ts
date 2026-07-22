@@ -10,7 +10,7 @@ const schema = matchSchema.partial();
 export default defineEventHandler(async (event) => {
   const db = useDrizzle();
   const body = schema.parse(await readBody(event));
-  const id = event.context.params?.id;
+  const id = Number(event.context.params?.id);
 
   await db
     .update(matches)
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
       ...body,
       matchDate: body.matchDate?.toISOString(),
     })
-    .where(eq(matches.id, Number(id)));
+    .where(eq(matches.id, id));
 
   return { success: true };
 });

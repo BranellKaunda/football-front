@@ -1,9 +1,13 @@
 <script setup>
 const route = useRoute();
-const matchId = route.params.id;
+const matchId = Number(route.params.id);
 
 const { getMatch } = useMatch();
 const match = await getMatch(matchId);
+
+if (!match) {
+  throw createError({ statusCode: 404, statusMessage: "Match not found" });
+}
 
 const onCancel = () => {
   navigateTo(`/leagues/${match.competition.id}`);

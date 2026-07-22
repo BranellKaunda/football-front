@@ -11,8 +11,8 @@ export function createEmptyMatchActions(matchId: number) {
 
 export function createEmptyMatchForm() {
   return {
-    homeTeam: { id: null, name: "" },
-    awayTeam: { id: null, name: "" },
+    homeTeam: { id: "", name: "" },
+    awayTeam: { id: "", name: "" },
     homeTeamGoals: 0,
     awayTeamGoals: 0,
     matchDate: null,

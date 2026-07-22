@@ -20,7 +20,14 @@ const rows = ref([]);
 //to know if i am editing or creating a new match
 function initRows() {
   if (match.value.id) {
-    rows.value = [{ ...match.value }];
+    const empty = createEmptyMatchForm();
+    rows.value = [
+      {
+        ...empty,
+        ...match.value,
+        referee: match.value.referee ?? empty.referee,
+      },
+    ];
   } else {
     rows.value = [{ ...createEmptyMatchForm() }];
   }
@@ -72,13 +79,13 @@ function cancel() {
 
 <template>
   <div class="max-w-full sm:max-w-6xl mx-auto p-4 sm:p-6">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6">
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6"
+    >
       <h1 class="text-xl sm:text-2xl font-bold text-center">
         {{ editing ? "Edit Match" : "Create Matches" }}
       </h1>
-      <button class="btn-primary" @click="addRow">
-        New Match
-      </button>
+      <button class="btn-primary" @click="addRow">New Match</button>
     </div>
 
     <div class="card overflow-x-auto" v-if="rows.length">
@@ -203,7 +210,9 @@ function cancel() {
     </div>
 
     <div class="flex gap-3 justify-end mt-6">
-      <button class="btn-secondary" type="button" @click="cancel">Cancel</button>
+      <button class="btn-secondary" type="button" @click="cancel">
+        Cancel
+      </button>
       <button class="btn-primary" type="button" @click="save">Save</button>
     </div>
   </div>
