@@ -2,6 +2,7 @@ import { defineEventHandler } from "h3";
 import { useDrizzle } from "#server/utils/drizzle";
 
 export default defineEventHandler(async (event) => {
+  const id = Number(event.context.params?.id);
   const result = await useDrizzle().query.players?.findFirst({
     columns: {
       id: true,
@@ -36,7 +37,7 @@ export default defineEventHandler(async (event) => {
       },
     },
     where: {
-      id: Number(event.context.params!.id),
+      id: id,
     },
   });
 

@@ -22,7 +22,11 @@ const visibleCount = ref(20);
 
 if (leagues?.length) {
   selectedName.value = leagues[0].name;
-  const seasons = [...new Set(leagues.filter((l) => l.name === selectedName.value).map((l) => l.season))];
+  const seasons = [
+    ...new Set(
+      leagues.filter((l) => l.name === selectedName.value).map((l) => l.season),
+    ),
+  ];
   selectedSeason.value = seasons[0] ?? "";
 }
 
@@ -45,7 +49,11 @@ const availableNames = computed(() => {
 
 const availableSeasons = computed(() => {
   if (!leagues || !selectedName.value) return [];
-  return [...new Set(leagues.filter((l) => l.name === selectedName.value).map((l) => l.season))];
+  return [
+    ...new Set(
+      leagues.filter((l) => l.name === selectedName.value).map((l) => l.season),
+    ),
+  ];
 });
 
 const matchedLeague = computed(() => {
@@ -176,12 +184,23 @@ watch(
             Edit League
           </NuxtLink>
         </div>
+
+        <!-- QUICK STATS -->
+        <div v-if="matchedLeague">
+          <LeagueQuickStats
+            :total-matches-played="leagueMatches?.length"
+            :league-id="matchedLeague.id"
+          />
+        </div>
       </div>
     </div>
   </div>
 
   <!-- TABS -->
-  <div v-if="leagueMatches.length" class="max-w-3xl mx-auto px-6 flex border-b overflow-x-auto">
+  <div
+    v-if="leagueMatches.length"
+    class="max-w-3xl mx-auto px-6 flex border-b overflow-x-auto"
+  >
     <button
       @click="activeTab = 'matches'"
       class="px-6 py-3 text-sm font-semibold border-b-2 transition"

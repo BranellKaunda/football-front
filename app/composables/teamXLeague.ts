@@ -4,6 +4,13 @@ export const useTeamXLeague = () => {
     return records;
   };
 
+  const getNumberOfTeamsInLeague = async (leagueId: number) => {
+    const data = await $fetch<any[]>(
+      `/api/teams-x-leagues/?league_id=${leagueId}`,
+    );
+    return data.length;
+  };
+
   const getTeamXLeague = async (recordId: number) => {
     const record = await $fetch(`/api/teams-x-leagues/${recordId}`);
     return record;
@@ -30,6 +37,7 @@ export const useTeamXLeague = () => {
 
   return {
     getAllTeamXLeagues,
+    getNumberOfTeamsInLeague,
     getTeamXLeague,
     getLeaguesByTeam,
     createTeamXLeague,

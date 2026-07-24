@@ -31,6 +31,8 @@ export const matchActionsEnum = pgEnum("match_action_type", [
   "Red Card",
   "Substitution",
   "Penalty",
+  "Foul",
+  "Offside",
 ]);
 
 export const teams = pgTable("teams", {
